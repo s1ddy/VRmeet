@@ -14,6 +14,10 @@ public class LobbyManager : MonoBehaviour
 
         if (!devMode)
         {
+            Screen.sleepTimeout = SleepTimeout.NeverSleep;
+            Screen.brightness = 1.0f;
+
+            // Checks if the device parameters are stored and scans them if not.
             if (!Api.HasDeviceParams())
             {
                 Api.ScanDeviceParams();
