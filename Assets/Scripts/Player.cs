@@ -110,7 +110,7 @@ public class Player : MonoBehaviourPun
             }
 
             RaycastHit hit;
-            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 1000))
+            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 5, 1<<7))
             {
                 if (hit.collider.gameObject.tag == "Chair")
                 {
