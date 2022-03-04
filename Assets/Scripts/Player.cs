@@ -11,7 +11,7 @@ public class Player : MonoBehaviourPun
     [SerializeField]
     private float sens = 25f;
 
-    private Animator anim;
+    public Animator anim;
 
     private bool devMode;
 
@@ -22,12 +22,16 @@ public class Player : MonoBehaviourPun
 
     private Transform cam;
 
+    [SerializeField]
+    private List<Avatar> avatarList = new List<Avatar>();
+
     // Start is called before the first frame update
     void Start()
     {
         cam = transform.GetChild(0);
         mm = FindObjectOfType<MeetingManager>();
         devMode = Application.platform != RuntimePlatform.Android;
+        anim = GetComponent<Animator>();
         if (!photonView.IsMine)
         {
             cam.gameObject.SetActive(false);
@@ -35,7 +39,8 @@ public class Player : MonoBehaviourPun
         else
         {
             cam.gameObject.SetActive(true);
-            anim = transform.GetChild(1).GetChild(mm.localCharacterIndex).GetComponent<Animator>();
+            //anim = transform.GetChild(1).GetChild(mm.localCharacterIndex).GetComponent<Animator>();
+            
         }
         
         
@@ -56,15 +61,28 @@ public class Player : MonoBehaviourPun
         {
             foreach (Transform child in transform)
             {
-                SetLayerRecursively(child.gameObject, 6);
+                SetLayerRecursively(child.gameObject, 0);
             }
         }
-        var cn = (int)gameObject.GetPhotonView().Owner.CustomProperties["Character"];
-        foreach (Transform child in transform.GetChild(1))
+
+        if (gameObject.GetPhotonView().Owner.CustomProperties != null)
         {
-            child.gameObject.SetActive(false);
+            var cn = (int)gameObject.GetPhotonView().Owner.CustomProperties["Character"];
+
+            for (int i = 0; i < 5; i++)
+            {
+                if (cn == i)
+                {
+                    transform.GetChild(1).GetChild(i).gameObject.SetActive(true);
+                    anim.avatar = avatarList[i];
+                }
+                else
+                {
+                    transform.GetChild(1).GetChild(i).gameObject.SetActive(false);
+                }
+            }
         }
-        transform.GetChild(1).GetChild(cn).gameObject.SetActive(true);
+        
     }
 
     // Update is called once per frame

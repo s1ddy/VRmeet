@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3638456827713358466}
   - component: {fileID: -4980293180304969403}
   - component: {fileID: -1814787610380806756}
+  - component: {fileID: 7282506091209727269}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -49,6 +50,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   sens: 10
+  anim: {fileID: 7282506091209727269}
+  avatarList:
+  - {fileID: 9000000, guid: d486d56ada31cbf419f6257b3abd653e, type: 3}
+  - {fileID: 9000000, guid: d68995c527be7ce4395d5418d4a80145, type: 3}
+  - {fileID: 9000000, guid: 0610d17a747853940ae4158cb2ae842f, type: 3}
+  - {fileID: 9000000, guid: e48ce60359244ef489a28f354e3a0baf, type: 3}
+  - {fileID: 9000000, guid: 7eecb3ad18a073a4aa212b18c6272d3f, type: 3}
 --- !u!114 &-4980293180304969403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,6 +96,25 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!95 &7282506091209727269
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3638456827713358467}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: d486d56ada31cbf419f6257b3abd653e, type: 3}
+  m_Controller: {fileID: 9100000, guid: 1cbbcd6a21778454c9b4082d259401d7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3638456828008128523
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,9 +597,17 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 7eecb3ad18a073a4aa212b18c6272d3f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 7eecb3ad18a073a4aa212b18c6272d3f, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 85cc44b8728826c48a0dec376854cfde, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 7eecb3ad18a073a4aa212b18c6272d3f, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6240431318503031700, guid: 7eecb3ad18a073a4aa212b18c6272d3f, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -956,6 +991,10 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: e48ce60359244ef489a28f354e3a0baf, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: e48ce60359244ef489a28f354e3a0baf, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: c1ca99d798b30f445a01241d47fc4988, type: 2}
@@ -968,6 +1007,10 @@ PrefabInstance:
         'mixamorig9:RightArm'\n\tTransform 'mixamorig9:RightFoot'\n\tTransform 'mixamorig9:Head'\n\tTransform
         'mixamorig9:Spine'\n\tTransform 'mixamorig9:LeftUpLeg'\n\tand more ...\n\tFrom
         animation clip 'Idle'"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: e48ce60359244ef489a28f354e3a0baf, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5869553146772215559, guid: e48ce60359244ef489a28f354e3a0baf, type: 3}
       propertyPath: m_Layer
@@ -1304,9 +1347,17 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: d68995c527be7ce4395d5418d4a80145, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: d68995c527be7ce4395d5418d4a80145, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: e385d72c4b74f9c42bd37ac873f23839, type: 2}
+    - target: {fileID: 5866666021909216657, guid: d68995c527be7ce4395d5418d4a80145, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6016762715603336492, guid: d68995c527be7ce4395d5418d4a80145, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -1750,9 +1801,17 @@ PrefabInstance:
       value: 0.017688747
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 0610d17a747853940ae4158cb2ae842f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 0610d17a747853940ae4158cb2ae842f, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 45d3620ce3e390d468c54503dd88b78e, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 0610d17a747853940ae4158cb2ae842f, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6240733294840144465, guid: 0610d17a747853940ae4158cb2ae842f, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -2138,6 +2197,10 @@ PrefabInstance:
     - target: {fileID: 5707441806202666856, guid: d486d56ada31cbf419f6257b3abd653e, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: d486d56ada31cbf419f6257b3abd653e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: d486d56ada31cbf419f6257b3abd653e, type: 3}
       propertyPath: m_Controller

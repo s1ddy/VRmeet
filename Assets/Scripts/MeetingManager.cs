@@ -10,7 +10,7 @@ public class MeetingManager : MonoBehaviour
 
     private bool devMode;
 
-    public int localCharacterIndex;
+    public int localCharacterIndex = 0;
 
     // Start is called before the first frame update
     void Start()
