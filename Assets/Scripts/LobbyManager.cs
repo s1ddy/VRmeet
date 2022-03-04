@@ -8,7 +8,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     private bool devMode;
 
-
     private void Awake()
     {
         PhotonNetwork.AutomaticallySyncScene = true;

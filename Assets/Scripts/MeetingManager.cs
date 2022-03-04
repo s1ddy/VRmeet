@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Google.XR.Cardboard;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class MeetingManager : MonoBehaviour
 {
 
     private bool devMode;
+
+    public int localCharacterIndex;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +25,10 @@ public class MeetingManager : MonoBehaviour
             }
         }
 
-        PhotonNetwork.Instantiate("Player", transform.position, Quaternion.identity);
+        GameObject playerT = PhotonNetwork.Instantiate("Player", transform.position, Quaternion.identity);
+        Hashtable h = new Hashtable();
+        h.Add("Character", localCharacterIndex);
+        PhotonNetwork.SetPlayerCustomProperties(h);
     }
 
     // Update is called once per frame

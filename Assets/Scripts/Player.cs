@@ -8,10 +8,15 @@ public class Player : MonoBehaviourPun
 {
     public float speed;
 
-    [SerializeField] float sens = 25f;
+    [SerializeField]
+    private float sens = 25f;
 
+    private Animator anim;
 
     private bool devMode;
+
+    private MeetingManager mm;
+
 
     private float xRot;
 
@@ -21,6 +26,7 @@ public class Player : MonoBehaviourPun
     void Start()
     {
         cam = transform.GetChild(0);
+        mm = FindObjectOfType<MeetingManager>();
         devMode = Application.platform != RuntimePlatform.Android;
         if (!photonView.IsMine)
         {
@@ -29,25 +35,64 @@ public class Player : MonoBehaviourPun
         else
         {
             cam.gameObject.SetActive(true);
+            anim = transform.GetChild(1).GetChild(mm.localCharacterIndex).GetComponent<Animator>();
         }
+        
+        
+    }
+
+    void SetLayerRecursively(GameObject go, int layerNumber)
+    {
+        if (go == null) return;
+        foreach (Transform trans in go.GetComponentsInChildren<Transform>(true))
+        {
+            trans.gameObject.layer = layerNumber;
+        }
+    }
+
+    void SetCharacter()
+    {
+        if (!photonView.IsMine)
+        {
+            foreach (Transform child in transform)
+            {
+                SetLayerRecursively(child.gameObject, 6);
+            }
+        }
+        var cn = (int)gameObject.GetPhotonView().Owner.CustomProperties["Character"];
+        foreach (Transform child in transform.GetChild(1))
+        {
+            child.gameObject.SetActive(false);
+        }
+        transform.GetChild(1).GetChild(cn).gameObject.SetActive(true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButton("Fire1"))
+        SetCharacter();
+        if (photonView.IsMine)
         {
-            MoveForward();
-        }
+            if (Input.GetButton("Fire1"))
+            {
+                MoveForward();
+            }
+            else
+            {
+                anim.SetFloat("Speed", 0);
+            }
 
-        if (devMode)
-        {
-            CameraLookAround();
+            if (devMode)
+            {
+                CameraLookAround();
+            }
         }
+        
     }
 
     private void MoveForward()
     {
+        anim.SetFloat("Speed", 1);
         transform.position += new Vector3(cam.forward.x, 0, cam.forward.z) * Time.deltaTime * speed;
     }
 

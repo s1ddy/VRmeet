@@ -959,6 +959,16 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: c1ca99d798b30f445a01241d47fc4988, type: 2}
+    - target: {fileID: 5866666021909216657, guid: e48ce60359244ef489a28f354e3a0baf, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'mixamorig9:Hips'\n\tTransform 'mixamorig9:LeftFoot'\n\tTransform
+        'mixamorig9:LeftArm'\n\tTransform 'mixamorig9:LeftLeg'\n\tTransform 'mixamorig9:LeftShoulder'\n\tTransform
+        'mixamorig9:RightArm'\n\tTransform 'mixamorig9:RightFoot'\n\tTransform 'mixamorig9:Head'\n\tTransform
+        'mixamorig9:Spine'\n\tTransform 'mixamorig9:LeftUpLeg'\n\tand more ...\n\tFrom
+        animation clip 'Idle'"
+      objectReference: {fileID: 0}
     - target: {fileID: 5869553146772215559, guid: e48ce60359244ef489a28f354e3a0baf, type: 3}
       propertyPath: m_Layer
       value: 6

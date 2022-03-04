@@ -121,11 +121,16 @@ namespace Photon.Pun
 
         private void Awake()
         {
-            this.m_Animator = GetComponent<Animator>();
+            int characterNumber = (int)gameObject.GetPhotonView().Owner.CustomProperties["Character"];
+            this.m_Animator = transform.GetChild(1).GetChild(characterNumber).GetComponent<Animator>();
         }
-
+        
         private void Update()
         {
+            int characterNumber = (int)gameObject.GetPhotonView().Owner.CustomProperties["Character"];
+            this.m_Animator = transform.GetChild(1).GetChild(characterNumber).GetComponent<Animator>();
+            Debug.Log(photonView.IsMine);
+            Debug.Log(characterNumber);
             if (this.m_Animator.applyRootMotion && this.photonView.IsMine == false && PhotonNetwork.IsConnected == true)
             {
                 this.m_Animator.applyRootMotion = false;
