@@ -19,6 +19,8 @@ public class Player : MonoBehaviourPun
 
     private MeetingManager mm;
 
+    private Rigidbody rb;
+
 
     private float xRot;
 
@@ -34,6 +36,7 @@ public class Player : MonoBehaviourPun
         mm = FindObjectOfType<MeetingManager>();
         devMode = Application.platform != RuntimePlatform.Android;
         anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
         if (!photonView.IsMine)
         {
             cam.gameObject.SetActive(false);
@@ -165,7 +168,8 @@ public class Player : MonoBehaviourPun
     private void MoveForward()
     {
         anim.SetFloat("Speed", 1);
-        transform.position += new Vector3(cam.forward.x, 0, cam.forward.z) * Time.deltaTime * speed;
+        Vector3 inputPos = new Vector3(cam.forward.x, 0, cam.forward.z);
+        rb.MovePosition(transform.position + (inputPos * speed * Time.deltaTime));
     }
 
     private void CameraLookAround()
