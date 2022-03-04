@@ -109,10 +109,35 @@ public class Player : MonoBehaviourPun
                 CameraLookAround();
             }
 
+            RaycastHit hit;
+            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 1000))
+            {
+                if (hit.collider.gameObject.tag == "Chair")
+                {
+                    transform.GetChild(0).GetChild(0).GetChild(1).gameObject.GetComponent<Light>().color = mm.hitRet;
+                    if (Input.GetButton("Fire1"))
+                    {
+                        Sit();
+                    }
+                }
+                else
+                {
+                    transform.GetChild(0).GetChild(0).GetChild(1).gameObject.GetComponent<Light>().color = mm.defaultRet;
+                }
+
+            } else
+            {
+                transform.GetChild(0).GetChild(0).GetChild(1).gameObject.GetComponent<Light>().color = mm.defaultRet;
+            }
 
 
         }
 
+    }
+
+    private void Sit()
+    {
+        Debug.Log("Sat");
     }
 
     private void MoveForward()

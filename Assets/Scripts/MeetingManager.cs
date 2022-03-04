@@ -12,6 +12,10 @@ public class MeetingManager : MonoBehaviour
 
     public int localCharacterIndex = 0;
 
+    public Color defaultRet;
+
+    public Color hitRet;
+
     // Start is called before the first frame update
     void Start()
     {
