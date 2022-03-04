@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using Photon.Voice;
+using Photon.Voice.PUN;
+using Photon.Voice.Unity;
 
 public class Player : MonoBehaviourPun
 {
@@ -29,20 +30,21 @@ public class Player : MonoBehaviourPun
     // Start is called before the first frame update
     void Start()
     {
-        cam = transform.GetChild(0);
+        cam = transform.GetChild(0).GetChild(0);
         mm = FindObjectOfType<MeetingManager>();
         devMode = Application.platform != RuntimePlatform.Android;
         anim = GetComponent<Animator>();
         if (!photonView.IsMine)
         {
             cam.gameObject.SetActive(false);
-            recorder
+            GetComponent<Recorder>().enabled = false;
         }
         else
         {
             cam.gameObject.SetActive(true);
+            GetComponent<Speaker>().enabled = false;
             //anim = transform.GetChild(1).GetChild(mm.localCharacterIndex).GetComponent<Animator>();
-            
+
         }
         
         
