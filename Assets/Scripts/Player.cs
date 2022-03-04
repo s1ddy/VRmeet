@@ -46,8 +46,8 @@ public class Player : MonoBehaviourPun
             //anim = transform.GetChild(1).GetChild(mm.localCharacterIndex).GetComponent<Animator>();
 
         }
-        
-        
+
+
     }
 
     void SetLayerRecursively(GameObject go, int layerNumber)
@@ -86,7 +86,7 @@ public class Player : MonoBehaviourPun
                 }
             }
         }
-        
+
     }
 
     // Update is called once per frame
@@ -109,7 +109,7 @@ public class Player : MonoBehaviourPun
                 CameraLookAround();
             }
         }
-        
+
     }
 
     private void MoveForward()
