@@ -96,8 +96,16 @@ public class Player : MonoBehaviourPun
         SetCharacter();
         if (photonView.IsMine)
         {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                if (speed == 0)
+                {
+                    Unsit();
+                }
+            }
             if (Input.GetButton("Fire1"))
             {
+                
                 MoveForward();
             }
             else
@@ -116,7 +124,7 @@ public class Player : MonoBehaviourPun
                 if (hit.collider.gameObject.tag == "Chair")
                 {
                     transform.GetChild(0).GetChild(0).GetChild(1).gameObject.GetComponent<Light>().color = mm.hitRet;
-                    if (Input.GetButton("Fire1"))
+                    if (Input.GetButtonDown("Fire1"))
                     {
                         Sit(hit.collider.gameObject);
                     }
@@ -134,6 +142,15 @@ public class Player : MonoBehaviourPun
 
         }
 
+    }
+
+    private void Unsit()
+    {
+        anim.SetBool("Sitting", false);
+        speed = 4;
+        Vector3 posC = transform.position;
+        posC.y = 1;
+        transform.position = posC;
     }
 
     private void Sit(GameObject chair)
