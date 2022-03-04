@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float speed; 
+    public float speed;
+
+    public float sens = 25f;
 
 
     private bool devMode;
@@ -42,8 +44,8 @@ public class Player : MonoBehaviour
 
     private void CameraLookAround()
     {
-        float mouseX = Input.GetAxis("Mouse X") * 50;
-        float mouseY = Input.GetAxis("Mouse Y") * 50;
+        float mouseX = Input.GetAxis("Mouse X") * sens;
+        float mouseY = Input.GetAxis("Mouse Y") * sens;
 
         xRot -= mouseY;
         xRot = Mathf.Clamp(xRot, -90f, 90f);
