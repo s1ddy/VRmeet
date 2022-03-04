@@ -43,6 +43,7 @@ public class Player : MonoBehaviourPun
         {
             cam.gameObject.SetActive(true);
             GetComponent<Speaker>().enabled = false;
+            transform.GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(true);
             //anim = transform.GetChild(1).GetChild(mm.localCharacterIndex).GetComponent<Animator>();
 
         }
@@ -117,7 +118,7 @@ public class Player : MonoBehaviourPun
                     transform.GetChild(0).GetChild(0).GetChild(1).gameObject.GetComponent<Light>().color = mm.hitRet;
                     if (Input.GetButton("Fire1"))
                     {
-                        Sit();
+                        Sit(hit.collider.gameObject);
                     }
                 }
                 else
@@ -135,9 +136,13 @@ public class Player : MonoBehaviourPun
 
     }
 
-    private void Sit()
+    private void Sit(GameObject chair)
     {
-        Debug.Log("Sat");
+        anim.SetBool("Sitting", true);
+        Vector3 chairPos = chair.transform.position;
+        chairPos.y = 1.35f;
+        transform.position = chairPos;
+        speed = 0;
     }
 
     private void MoveForward()
