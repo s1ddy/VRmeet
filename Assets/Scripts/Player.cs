@@ -36,16 +36,16 @@ public class Player : MonoBehaviourPun
         if (!photonView.IsMine)
         {
             cam.gameObject.SetActive(false);
-            recorder
+            
         }
         else
         {
             cam.gameObject.SetActive(true);
             //anim = transform.GetChild(1).GetChild(mm.localCharacterIndex).GetComponent<Animator>();
-            
+
         }
-        
-        
+
+
     }
 
     void SetLayerRecursively(GameObject go, int layerNumber)
@@ -84,7 +84,7 @@ public class Player : MonoBehaviourPun
                 }
             }
         }
-        
+
     }
 
     // Update is called once per frame
@@ -107,7 +107,7 @@ public class Player : MonoBehaviourPun
                 CameraLookAround();
             }
         }
-        
+
     }
 
     private void MoveForward()
