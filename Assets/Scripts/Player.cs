@@ -53,8 +53,8 @@ public class Player : MonoBehaviourPun
 
     private void CameraLookAround()
     {
-        float mouseX = Input.GetAxis("Mouse X") * sens * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * sens * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * sens;
+        float mouseY = Input.GetAxis("Mouse Y") * sens;
 
         xRot -= mouseY;
         xRot = Mathf.Clamp(xRot, -90f, 90f);
