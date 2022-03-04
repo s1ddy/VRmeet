@@ -22,7 +22,7 @@ public class MeetingManager : MonoBehaviour
             }
         }
 
-        PhotonNetwork.Instantiate("Player", new Vector3(0, 0.5f, 0), Quaternion.identity);
+        PhotonNetwork.Instantiate("Player", transform.position, Quaternion.identity);
     }
 
     // Update is called once per frame
