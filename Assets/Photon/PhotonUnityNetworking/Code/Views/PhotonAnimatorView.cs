@@ -123,7 +123,7 @@ namespace Photon.Pun
         {
             this.m_Animator = GetComponent<Animator>();
         }
-        
+
         private void Update()
         {
             if (this.m_Animator.applyRootMotion && this.photonView.IsMine == false && PhotonNetwork.IsConnected == true)

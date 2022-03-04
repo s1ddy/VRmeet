@@ -24,7 +24,7 @@ public class MeetingManager : MonoBehaviour
                 Api.ScanDeviceParams();
             }
         }
-
+        localCharacterIndex = PhotonNetwork.LocalPlayer.ActorNumber;
         GameObject playerT = PhotonNetwork.Instantiate("Player", transform.position, Quaternion.identity);
         Hashtable h = new Hashtable();
         h.Add("Character", localCharacterIndex);
