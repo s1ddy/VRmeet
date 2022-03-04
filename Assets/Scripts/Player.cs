@@ -42,8 +42,8 @@ public class Player : MonoBehaviour
 
     private void CameraLookAround()
     {
-        float mouseX = Input.GetAxis("Mouse X") * 50 * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * 50 * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * 50;
+        float mouseY = Input.GetAxis("Mouse Y") * 50;
 
         xRot -= mouseY;
         xRot = Mathf.Clamp(xRot, -90f, 90f);
