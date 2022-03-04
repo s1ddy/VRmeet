@@ -6,7 +6,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float speed; 
+
+
     private bool devMode;
+
+    private float xRot;
 
     private Transform cam;
 
@@ -24,10 +28,26 @@ public class Player : MonoBehaviour
         {
             MoveForward();
         }
+
+        if (devMode)
+        {
+            CameraLookAround();
+        }
     }
 
     private void MoveForward()
     {
         transform.position += new Vector3(cam.forward.x, 0, cam.forward.z) * Time.deltaTime * speed;
+    }
+
+    private void CameraLookAround()
+    {
+        float mouseX = Input.GetAxis("Mouse X") * 50 * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * 50 * Time.deltaTime;
+
+        xRot -= mouseY;
+        xRot = Mathf.Clamp(xRot, -90f, 90f);
+        cam.localRotation = Quaternion.Euler(xRot, 0, 0);
+        transform.Rotate(Vector3.up * mouseX);
     }
 }
