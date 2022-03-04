@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviourPun
 {
     public float speed;
 
-    public float sens = 25f;
+    [SerializeField] float sens = 25f;
 
 
     private bool devMode;
@@ -21,6 +22,14 @@ public class Player : MonoBehaviour
     {
         cam = transform.GetChild(0);
         devMode = Application.platform != RuntimePlatform.Android;
+        if (!photonView.IsMine)
+        {
+            cam.gameObject.SetActive(false);
+        }
+        else
+        {
+            cam.gameObject.SetActive(true);
+        }
     }
 
     // Update is called once per frame
@@ -44,8 +53,8 @@ public class Player : MonoBehaviour
 
     private void CameraLookAround()
     {
-        float mouseX = Input.GetAxis("Mouse X") * sens;
-        float mouseY = Input.GetAxis("Mouse Y") * sens;
+        float mouseX = Input.GetAxis("Mouse X") * sens * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * sens * Time.deltaTime;
 
         xRot -= mouseY;
         xRot = Mathf.Clamp(xRot, -90f, 90f);

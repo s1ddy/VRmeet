@@ -7,6 +7,9 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/LobbyRoom.unity
-    guid: f02e5d70593baf44dab44234d6fd6981
+    guid: 901cfff55b924f24190529b6aaed3c01
+  - enabled: 1
+    path: Assets/Scenes/MeetingRoom.unity
+    guid: 7321640eefcc3fa4a8840a53d070e3f9
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: e58e77a4b594d9248bb00f73eba11b66, type: 2}
