@@ -6,6 +6,7 @@ using Photon.Pun;
 using Photon.Voice.PUN;
 using Photon.Voice.Unity;
 using System.Linq;
+using System.IO;
 
 public class Player : MonoBehaviourPun, IPunObservable
 {
@@ -276,19 +277,42 @@ public class Player : MonoBehaviourPun, IPunObservable
 
 
     }
+    private byte[] ObjectToByteArray(Object obj)
+    {
+        if (obj == null)
+            return null;
+        BinaryFormatter bf = new BinaryFormatter();
+        MemoryStream ms = new MemoryStream();
+        bf.Serialize(ms, obj);
+        return ms.ToArray();
+    }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (stream.IsWriting)
+        if (photonView.IsMine)
         {
-            byte[] bytes = whiteboardObj.texture.GetRawTextureData();
-            stream.SendNext(bytes);
-        } else
-        {
-            var test2 = new Texture2D(2048, 1024);
-            test2.LoadRawTextureData(((byte[])stream.ReceiveNext()));
-            test2.Apply();
-            whiteboardObj.texture = test2;
+            if (stream.IsWriting)
+            {
+                byte[] bytes = whiteboardObj.texture.GetRawTextureData();
+                stream.SendNext(bytes);
+            }
+            else
+            {
+                var test2 = new Texture2D(2048, 1024);
+                var test3 = (object[])stream.ReceiveNext();
+                Byte[] byteArray = new Byte[test3.Length];
+
+                int i = 0;
+                foreach (object obj in test3)
+                {
+                    byteArray[i] = Convert.ToByte(obj);
+                    i++;
+                }
+                test2.LoadRawTextureData(byteArray);
+                test2.Apply();
+                whiteboardObj.texture = test2;
+            }
         }
+        
     }
 }
