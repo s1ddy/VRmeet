@@ -137,7 +137,7 @@ public class Player : MonoBehaviourPun, IPunObservable
                         Sit(hit.collider.gameObject);
                     }
                 }
-                else if (hit.collider.gameObject.tag == "Whiteboard")
+                else if (hit.collider.gameObject.tag == "Whiteboard" && PhotonNetwork.IsMasterClient)
                 {
                     transform.GetChild(0).GetChild(0).GetChild(1).gameObject.GetComponent<Light>().color = mm.hitRet;
                     if (Input.GetButton("Fire1"))
@@ -169,6 +169,17 @@ public class Player : MonoBehaviourPun, IPunObservable
                         touchedWhiteboardLastFrame = true;
                         return;
                     }
+                }
+                else if (hit.collider.gameObject.tag == "Erase")
+                {
+                    transform.GetChild(0).GetChild(0).GetChild(1).gameObject.GetComponent<Light>().color = mm.hitRet;
+                    if (Input.GetButtonDown("Fire1"))
+                    {
+                        Texture2D tmptext2d = new Texture2D(2048, 1024);
+                        FindObjectOfType<Whiteboard>().GetComponent<Renderer>().material.mainTexture = tmptext2d;
+                        FindObjectOfType<Whiteboard>().texture = tmptext2d;
+                    }
+                    
                 }
                 else
                 {
@@ -268,10 +279,16 @@ public class Player : MonoBehaviourPun, IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        /*if (stream.IsWriting)
+        if (stream.IsWriting)
         {
-            
-            stream.SendNext(whiteboardObj.texture)
-        }*/
+            byte[] bytes = whiteboardObj.texture.GetRawTextureData();
+            stream.SendNext(bytes);
+        } else
+        {
+            var test2 = new Texture2D(2048, 1024);
+            test2.LoadRawTextureData(((byte[])stream.ReceiveNext()));
+            test2.Apply();
+            whiteboardObj.texture = test2;
+        }
     }
 }
