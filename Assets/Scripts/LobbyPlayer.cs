@@ -33,15 +33,17 @@ public class LobbyPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetButton("Fire1")) MoveForward();
+
         RaycastHit hit;
-        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 5, 1 << 7))
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 100, 1 << 7))
         {
             if (hit.collider.gameObject.tag == "Chair")
             {
                 transform.GetChild(0).GetChild(0).GetChild(1).gameObject.GetComponent<Light>().color = lm.hitRet;
                 if (Input.GetButtonDown("Fire1"))
                 {
-                    
+                    lm.ConnectRoom();
                 }
             }
             else
@@ -53,6 +55,14 @@ public class LobbyPlayer : MonoBehaviour
         else
         {
             transform.GetChild(0).GetChild(0).GetChild(1).gameObject.GetComponent<Light>().color = lm.defaultRet;
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (devMode)
+        {
+            CameraLookAround();
         }
     }
 

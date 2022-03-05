@@ -69,12 +69,16 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         //PhotonNetwork.JoinRandomOrCreateRoom();
-        ConnectRoom();
+        
     }
 
     public void ConnectRoom()
     {
-        PhotonNetwork.JoinRandomOrCreateRoom();
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.JoinRandomOrCreateRoom();
+        }
+        
     }
 
     public override void OnJoinedRoom()
