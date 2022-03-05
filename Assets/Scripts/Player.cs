@@ -281,30 +281,13 @@ public class Player : MonoBehaviourPun, IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (photonView.IsMine)
+        if (stream.IsWriting)
         {
-            if (stream.IsWriting)
-            {
-                byte[] bytes = whiteboardObj.texture.GetRawTextureData();
-                stream.SendNext(bytes);
-            }
-            else
-            {
-                var test2 = new Texture2D(2048, 1024);
-                var test3 = (object[])stream.ReceiveNext();
-                Byte[] byteArray = new Byte[test3.Length];
-
-                int i = 0;
-                foreach (object obj in test3)
-                {
-                    byteArray[i] = Convert.ToByte(obj);
-                    i++;
-                }
-                test2.LoadRawTextureData(byteArray);
-                test2.Apply();
-                whiteboardObj.texture = test2;
-            }
+            stream.SendNext(head.transform.eulerAngles);
         }
-        
+        else
+        {
+            head.transform.eulerAngles = (Vector3)stream.ReceiveNext();
+        }
     }
 }
