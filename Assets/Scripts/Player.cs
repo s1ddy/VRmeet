@@ -7,7 +7,7 @@ using Photon.Voice.PUN;
 using Photon.Voice.Unity;
 using System.Linq;
 
-public class Player : MonoBehaviourPun
+public class Player : MonoBehaviourPun, IPunObservable
 {
     public float speed;
 
@@ -127,7 +127,7 @@ public class Player : MonoBehaviourPun
             
 
             RaycastHit hit;
-            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 5, LayerMask.GetMask("Chair", "Whiteboard")))
+            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 15, LayerMask.GetMask("Chair", "Whiteboard")))
             {
                 if (hit.collider.gameObject.tag == "Chair")
                 {
@@ -136,13 +136,11 @@ public class Player : MonoBehaviourPun
                     {
                         Sit(hit.collider.gameObject);
                     }
-                    whiteboardObj = null;
-                    touchedWhiteboardLastFrame = false;
                 }
                 else if (hit.collider.gameObject.tag == "Whiteboard")
                 {
                     transform.GetChild(0).GetChild(0).GetChild(1).gameObject.GetComponent<Light>().color = mm.hitRet;
-                    if (Input.GetButtonDown("Fire1"))
+                    if (Input.GetButton("Fire1"))
                     {
                         var whiteb = hit.transform.gameObject.GetComponent<Whiteboard>();
                         whiteboardObj = whiteb;
@@ -169,12 +167,12 @@ public class Player : MonoBehaviourPun
 
                         lastWhiteboardDrawPos = new Vector2(x, y);
                         touchedWhiteboardLastFrame = true;
+                        return;
                     }
                 }
                 else
                 {
-                    whiteboardObj = null;
-                    touchedWhiteboardLastFrame = false;
+                    
                     transform.GetChild(0).GetChild(0).GetChild(1).gameObject.GetComponent<Light>().color = mm.defaultRet;
                 }
 
@@ -183,14 +181,15 @@ public class Player : MonoBehaviourPun
                 transform.GetChild(0).GetChild(0).GetChild(1).gameObject.GetComponent<Light>().color = mm.defaultRet;
             }
 
-
+            whiteboardObj = null;
+            touchedWhiteboardLastFrame = false;
         }
 
     }
 
     private void FixedUpdate()
     {
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButton("Fire1") && !touchedWhiteboardLastFrame)
         {
 
             MoveForward();
@@ -261,6 +260,18 @@ public class Player : MonoBehaviourPun
             head.transform.localEulerAngles = new Vector3(xRot, 0, head.transform.localEulerAngles.z);
         }*/
 
+       
         
+
+
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        /*if (stream.IsWriting)
+        {
+            
+            stream.SendNext(whiteboardObj.texture)
+        }*/
     }
 }
