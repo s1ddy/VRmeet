@@ -17,6 +17,8 @@ public class Player : MonoBehaviourPun
 
     private bool devMode;
 
+    private Rigidbody rb;
+
     private MeetingManager mm;
 
     private float xRot;
@@ -37,6 +39,7 @@ public class Player : MonoBehaviourPun
         cam = transform.GetChild(0).GetChild(0);
         mm = FindObjectOfType<MeetingManager>();
         devMode = Application.platform != RuntimePlatform.Android;
+        rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         if (!photonView.IsMine)
         {
@@ -47,6 +50,7 @@ public class Player : MonoBehaviourPun
         {
             cam.gameObject.SetActive(true);
             GetComponent<Speaker>().enabled = false;
+            rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
             transform.GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(true);
             //anim = transform.GetChild(1).GetChild(mm.localCharacterIndex).GetComponent<Animator>();
 
@@ -169,6 +173,7 @@ public class Player : MonoBehaviourPun
     {
         anim.SetBool("Sitting", false);
         speed = 4;
+        rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
         Vector3 posC = transform.position;
         posC.y = 1;
         transform.position = posC;
@@ -177,6 +182,7 @@ public class Player : MonoBehaviourPun
     private void Sit(GameObject chair)
     {
         anim.SetBool("Sitting", true);
+        rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
         Vector3 chairPos = chair.transform.position;
         chairPos.y = 1.35f;
         transform.position = chairPos;

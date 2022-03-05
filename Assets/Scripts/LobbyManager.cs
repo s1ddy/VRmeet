@@ -8,6 +8,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     private bool devMode;
 
+    public Color defaultRet;
+
+    public Color hitRet;
+
     private void Awake()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -63,6 +67,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
 
     public override void OnConnectedToMaster()
+    {
+        //PhotonNetwork.JoinRandomOrCreateRoom();
+        ConnectRoom();
+    }
+
+    public void ConnectRoom()
     {
         PhotonNetwork.JoinRandomOrCreateRoom();
     }

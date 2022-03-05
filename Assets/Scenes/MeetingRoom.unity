@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.34471536, g: 0.29301873, b: 0.12346212, a: 1}
+  m_IndirectSpecularColor: {r: 0.34471437, g: 0.2930181, b: 0.12346182, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3755,6 +3755,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 8440f7c46cde87942a79d9125f40ae89, type: 2}
+    - target: {fileID: 2468346583201311227, guid: 247e5b33a1b1dba43a82e14ad7191756, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 208023689436662644, guid: 247e5b33a1b1dba43a82e14ad7191756, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 247e5b33a1b1dba43a82e14ad7191756, type: 3}
@@ -18468,6 +18472,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 8440f7c46cde87942a79d9125f40ae89, type: 2}
+    - target: {fileID: 2468346583201311227, guid: 247e5b33a1b1dba43a82e14ad7191756, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 247e5b33a1b1dba43a82e14ad7191756, type: 3}
 --- !u!4 &857551229 stripped
@@ -25905,6 +25913,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 8440f7c46cde87942a79d9125f40ae89, type: 2}
+    - target: {fileID: 2468346583201311227, guid: 247e5b33a1b1dba43a82e14ad7191756, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 208023689436662644, guid: 247e5b33a1b1dba43a82e14ad7191756, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 247e5b33a1b1dba43a82e14ad7191756, type: 3}
@@ -27175,7 +27187,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1313859343}
   m_LocalRotation: {x: -0.00071202737, y: -0, z: -0, w: 0.99999976}
-  m_LocalPosition: {x: -3.559554, y: -4.07, z: 4.4665565}
+  m_LocalPosition: {x: -3.559554, y: -3.2, z: 4.4665565}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1091663525}
