@@ -8,7 +8,7 @@ using Photon.Voice.Unity;
 using System.Linq;
 using System.IO;
 
-public class Player : MonoBehaviourPun, IPunObservable
+public class Player : MonoBehaviourPun
 {
     public float speed;
 
@@ -279,15 +279,4 @@ public class Player : MonoBehaviourPun, IPunObservable
     }
 
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(head.transform.eulerAngles);
-        }
-        else
-        {
-            head.transform.eulerAngles = (Vector3)stream.ReceiveNext();
-        }
-    }
 }
