@@ -5,6 +5,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Voice.PUN;
 using Photon.Voice.Unity;
+using System.Linq;
 
 public class Player : MonoBehaviourPun
 {
@@ -21,9 +22,17 @@ public class Player : MonoBehaviourPun
 
     private MeetingManager mm;
 
+    private Whiteboard whiteboardObj;
+
+    private Vector2 lastWhiteboardDrawPos;
+
     private float xRot;
 
+    private bool touchedWhiteboardLastFrame = false;
+
     private Transform cam;
+
+    private Vector2 whiteboardDrawPos;
 
     [SerializeField]
     private List<GameObject> headList = new List<GameObject>();
@@ -118,7 +127,7 @@ public class Player : MonoBehaviourPun
             
 
             RaycastHit hit;
-            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 5, 1<<7))
+            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 5, LayerMask.GetMask("Chair", "Whiteboard")))
             {
                 if (hit.collider.gameObject.tag == "Chair")
                 {
@@ -127,9 +136,45 @@ public class Player : MonoBehaviourPun
                     {
                         Sit(hit.collider.gameObject);
                     }
+                    whiteboardObj = null;
+                    touchedWhiteboardLastFrame = false;
+                }
+                else if (hit.collider.gameObject.tag == "Whiteboard")
+                {
+                    transform.GetChild(0).GetChild(0).GetChild(1).gameObject.GetComponent<Light>().color = mm.hitRet;
+                    if (Input.GetButtonDown("Fire1"))
+                    {
+                        var whiteb = hit.transform.gameObject.GetComponent<Whiteboard>();
+                        whiteboardObj = whiteb;
+                        whiteboardDrawPos = new Vector2(hit.textureCoord.x, hit.textureCoord.y);
+
+                        var x = (int)(2048 * hit.textureCoord.x);
+                        var y = (int)(1024 * hit.textureCoord.y);
+
+                        if (y < 0 || y > 1024 || x < 0 || x > 2048) return;
+
+                        if (touchedWhiteboardLastFrame)
+                        {
+                            whiteboardObj.texture.SetPixels(x, y, 20, 20, Enumerable.Repeat(Color.black, 400).ToArray());
+
+                            for (float f = 0.01f; f < 1.00f; f += 0.02f)
+                            {
+                                var xLerp = (int)Mathf.Lerp(lastWhiteboardDrawPos.x, x, f);
+                                var yLerp = (int)Mathf.Lerp(lastWhiteboardDrawPos.y, y, f);
+                                whiteboardObj.texture.SetPixels(xLerp, yLerp, 20, 20, Enumerable.Repeat(Color.black, 400).ToArray());
+                            }
+
+                            whiteboardObj.texture.Apply();
+                        }
+
+                        lastWhiteboardDrawPos = new Vector2(x, y);
+                        touchedWhiteboardLastFrame = true;
+                    }
                 }
                 else
                 {
+                    whiteboardObj = null;
+                    touchedWhiteboardLastFrame = false;
                     transform.GetChild(0).GetChild(0).GetChild(1).gameObject.GetComponent<Light>().color = mm.defaultRet;
                 }
 

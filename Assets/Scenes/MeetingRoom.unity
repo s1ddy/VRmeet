@@ -37626,8 +37626,9 @@ GameObject:
   - component: {fileID: 1859782887}
   - component: {fileID: 1859782886}
   - component: {fileID: 1859782885}
-  m_Layer: 0
-  m_Name: Plane
+  - component: {fileID: 1859782888}
+  m_Layer: 8
+  m_Name: Whiteboard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37641,8 +37642,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1859782883}
   m_LocalRotation: {x: -0, y: -0, z: 0.7259942, w: 0.68770087}
-  m_LocalPosition: {x: 19.1, y: 7.06, z: 4.51}
-  m_LocalScale: {x: 0.5, y: 1, z: 1}
+  m_LocalPosition: {x: 19.08, y: 7.41, z: 5}
+  m_LocalScale: {x: 0.42, y: 1, z: 0.84}
   m_Children: []
   m_Father: {fileID: 1313859344}
   m_RootOrder: 20
@@ -37710,6 +37711,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1859782883}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1859782888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859782883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3544a1f3015601145b46854578c1dd70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  texture: {fileID: 0}
 --- !u!1 &1863830409
 GameObject:
   m_ObjectHideFlags: 0
