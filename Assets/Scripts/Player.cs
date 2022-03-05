@@ -19,9 +19,6 @@ public class Player : MonoBehaviourPun
 
     private MeetingManager mm;
 
-    private Rigidbody rb;
-
-
     private float xRot;
 
     private Transform cam;
@@ -41,7 +38,6 @@ public class Player : MonoBehaviourPun
         mm = FindObjectOfType<MeetingManager>();
         devMode = Application.platform != RuntimePlatform.Android;
         anim = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody>();
         if (!photonView.IsMine)
         {
             cam.gameObject.SetActive(false);
@@ -89,7 +85,7 @@ public class Player : MonoBehaviourPun
                 {
                     transform.GetChild(1).GetChild(i).gameObject.SetActive(true);
                     anim.avatar = avatarList[i];
-                    //head = headList[i];
+                    head = headList[i];
                 }
                 else
                 {
@@ -115,10 +111,7 @@ public class Player : MonoBehaviourPun
             }
             
             
-            if (devMode)
-            {
-                CameraLookAround();
-            }
+            
 
             RaycastHit hit;
             if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 5, 1<<7))
@@ -160,6 +153,18 @@ public class Player : MonoBehaviourPun
 
     }
 
+    private void LateUpdate()
+    {
+        if (devMode)
+        {
+            CameraLookAround();
+        }
+        if (photonView.IsMine)
+        {
+            head.transform.eulerAngles = cam.eulerAngles;
+        }
+    }
+
     private void Unsit()
     {
         anim.SetBool("Sitting", false);
@@ -182,7 +187,7 @@ public class Player : MonoBehaviourPun
     {
         anim.SetFloat("Speed", 1);
         Vector3 inputPos = new Vector3(cam.forward.x, 0, cam.forward.z);
-        rb.MovePosition(transform.position + (inputPos * speed * Time.deltaTime));
+        transform.position += inputPos * speed * Time.deltaTime;
     }
 
     private void CameraLookAround()
@@ -192,7 +197,19 @@ public class Player : MonoBehaviourPun
         xRot -= mouseY;
         xRot = Mathf.Clamp(xRot, -90f, 90f);
         cam.localRotation = Quaternion.Euler(xRot, 0, 0);
-        //head.transform.localRotation = cam.localRotation;
         transform.Rotate(Vector3.up * mouseX);
+
+        /*
+        if (anim.GetBool("Sitting"))
+        {
+            head.transform.Rotate(Vector3.up * mouseX);
+            head.transform.localEulerAngles = new Vector3(xRot, head.transform.localEulerAngles.y, head.transform.localEulerAngles.z);
+        } else
+        {
+            transform.Rotate(Vector3.up * mouseX);
+            head.transform.localEulerAngles = new Vector3(xRot, 0, head.transform.localEulerAngles.z);
+        }*/
+
+        
     }
 }
