@@ -27,6 +27,11 @@ public class Player : MonoBehaviourPun
     private Transform cam;
 
     [SerializeField]
+    private List<GameObject> headList = new List<GameObject>();
+
+    private GameObject head;
+
+    [SerializeField]
     private List<Avatar> avatarList = new List<Avatar>();
 
     // Start is called before the first frame update
@@ -65,6 +70,7 @@ public class Player : MonoBehaviourPun
 
     void SetCharacter()
     {
+        
         if (!photonView.IsMine)
         {
             foreach (Transform child in transform)
@@ -83,6 +89,7 @@ public class Player : MonoBehaviourPun
                 {
                     transform.GetChild(1).GetChild(i).gameObject.SetActive(true);
                     anim.avatar = avatarList[i];
+                    //head = headList[i];
                 }
                 else
                 {
@@ -106,16 +113,8 @@ public class Player : MonoBehaviourPun
                     Unsit();
                 }
             }
-            if (Input.GetButton("Fire1"))
-            {
-                
-                MoveForward();
-            }
-            else
-            {
-                anim.SetFloat("Speed", 0);
-            }
-
+            
+            
             if (devMode)
             {
                 CameraLookAround();
@@ -143,6 +142,20 @@ public class Player : MonoBehaviourPun
             }
 
 
+        }
+
+    }
+
+    private void FixedUpdate()
+    {
+        if (Input.GetButton("Fire1"))
+        {
+
+            MoveForward();
+        }
+        else
+        {
+            anim.SetFloat("Speed", 0);
         }
 
     }
@@ -176,10 +189,10 @@ public class Player : MonoBehaviourPun
     {
         float mouseX = Input.GetAxis("Mouse X") * sens;
         float mouseY = Input.GetAxis("Mouse Y") * sens;
-
         xRot -= mouseY;
         xRot = Mathf.Clamp(xRot, -90f, 90f);
         cam.localRotation = Quaternion.Euler(xRot, 0, 0);
+        //head.transform.localRotation = cam.localRotation;
         transform.Rotate(Vector3.up * mouseX);
     }
 }
